@@ -486,3 +486,21 @@ def lvlm_inference(prompt, image, max_tokens: int = 200, temperature: float = 0.
     conversation = prediction_guard_llava_conv.copy()
     conversation.append_message(conversation.roles[0], [prompt, image])
     return lvlm_inference_with_conversation(conversation, max_tokens=max_tokens, temperature=temperature, top_p=top_p, top_k=top_k)
+
+    
+
+def lvlm_inference_with_conversation(conversation, max_tokens: int = 200, temperature: float = 0.95, top_p: float = 0.1, top_k: int = 10):
+    # get PredictionGuard client
+    client = _getPredictionGuardClient()
+    # get message from conversation
+    messages = conversation.get_message()
+    # call chat completion endpoint at Grediction Guard
+    response = client.chat.completions.create(
+        model="llava-1.5-7b-hf",
+        messages=messages,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        top_p=top_p,
+        top_k=top_k,
+    )
+    return response['choices'][-1]['message']['content']
