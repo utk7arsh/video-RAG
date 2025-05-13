@@ -3,6 +3,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { useTheme } from '@/contexts/ThemeContext';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Github, Linkedin, Twitter } from 'lucide-react';
+import meImg from '@/me.jpg';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -39,9 +40,9 @@ export default function About() {
               className="relative w-48 h-48 mx-auto mb-8"
               variants={fadeInUp}
             >
-              <div className="absolute inset-0 rounded-full gradient-bg opacity-20 animate-pulse"></div>
+              <div className="absolute inset-0 rounded-full gradient-bg opacity-20"></div>
               <img
-                src="/your-photo.jpg"
+                src={meImg}
                 alt="Utkarsh"
                 className="w-full h-full object-cover rounded-full border-4 border-background"
               />
@@ -63,7 +64,7 @@ export default function About() {
               variants={fadeInUp}
             >
               <motion.a
-                href="https://github.com/yourusername"
+                href="https://github.com/utk7arsh"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full border border-border hover:border-primary/50 transition-colors"
@@ -74,7 +75,7 @@ export default function About() {
                 <Github className="w-6 h-6 text-muted-foreground hover:text-foreground transition-colors" />
               </motion.a>
               <motion.a
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/utkarshlal/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full border border-border hover:border-primary/50 transition-colors"
@@ -85,7 +86,7 @@ export default function About() {
                 <Linkedin className="w-6 h-6 text-muted-foreground hover:text-foreground transition-colors" />
               </motion.a>
               <motion.a
-                href="https://twitter.com/yourusername"
+                href="https://x.com/utk7arsh"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full border border-border hover:border-primary/50 transition-colors"
@@ -97,7 +98,7 @@ export default function About() {
               </motion.a>
             </motion.div>
             <motion.a 
-              href="mailto:your.email@example.com" 
+              href="mailto:utkarshlal@gmail.com" 
               className="block w-full text-center px-6 py-3 rounded-full gradient-bg text-white font-medium hover:opacity-90 transition-opacity"
               variants={fadeInUp}
               whileHover={{ scale: 1.05 }}
@@ -119,7 +120,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
           >
             <motion.h2 
-              className="text-3xl font-bold mb-8"
+              className="text-4xl md:text-5xl font-extrabold mb-8 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent drop-shadow-sm tracking-tight"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -128,102 +129,25 @@ export default function About() {
               My Story
             </motion.h2>
             <motion.div 
-              className="prose prose-lg dark:prose-invert"
+              className="prose prose-lg dark:prose-invert max-w-2xl text-lg leading-relaxed"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <p className="mb-6">
-                As a passionate developer and AI enthusiast, I've always been fascinated by the intersection of technology and human learning. My journey in tech began with a simple curiosity about how machines can understand and process information like humans do.
+              <p>
+                Hey, I'm <span className="font-bold text-primary">Utkarsh</span> — a builder at heart and a relentless tinkerer at the intersection of <span className="font-semibold text-gradient bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">AI, systems, and learning</span>. I am a senior at <span className="font-semibold text-blue-500">University of California, Los Angeles</span>. My journey into tech wasn't sparked by a single <span className="italic">"aha"</span> moment, but by a growing obsession with how humans absorb information, and how badly our current tools bottleneck that process.
               </p>
-              <p className="mb-6">
-                After working on various projects in web development and machine learning, I noticed a significant gap in how we interact with video content. While text-based information is easily searchable and analyzable, video content remains largely untapped in terms of its potential for knowledge extraction.
+              <p>
+                As someone who's spent years working across <span className="font-semibold text-gradient bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">machine learning, full-stack development, and research</span>, I kept running into the same problem: <span className="font-bold text-primary">video content is still a black box</span>. While we've nailed search and analysis for text, video remains clunky, hard to navigate, and nearly impossible to query meaningfully.
               </p>
-              <p className="mb-6">
-                This realization led me to create VideoInsight - a platform that bridges the gap between video content and actionable insights. My goal is to make video content as accessible and searchable as text, enabling people to learn more effectively from visual media.
+              <p>
+                That's why I created <span className="font-bold text-gradient bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">VideoInsight</span> — a system designed to make video content as interactive and explorable as a conversation. Imagine being able to <span className="font-semibold text-primary">ask a video a question and instantly jump to the answer</span>, not just get a vague summary. That's what I'm building.
               </p>
-            </motion.div>
-          </motion.section>
 
-          {/* Mission Section */}
-          <motion.section 
-            className="mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.h2 
-              className="text-3xl font-bold mb-8"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              My Mission
-            </motion.h2>
-            <motion.div 
-              className="prose prose-lg dark:prose-invert"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <p className="mb-6">
-                I believe that knowledge should be accessible to everyone, and video content is one of the most powerful mediums for learning. However, the current state of video content makes it difficult to extract specific information or find relevant sections quickly.
+              <p>
+                Whether you're a student, creator, researcher, or just curious — I want you to spend less time scrubbing timelines and more time learning. <span className="font-semibold text-gradient bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Please reach out to me if you'd like to see any new features in the app. Make sure to join the waitlist to be notified when the Playground is live!</span>
               </p>
-              <p className="mb-6">
-                With VideoInsight, I'm working to revolutionize how we interact with video content by:
-              </p>
-              <motion.ul 
-                className="list-disc pl-6 mb-6 space-y-2"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <motion.li 
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.7 }}
-                >
-                  Making video content searchable and analyzable
-                </motion.li>
-                <motion.li 
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.8 }}
-                >
-                  Enabling quick access to specific information within videos
-                </motion.li>
-                <motion.li 
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.9 }}
-                >
-                  Providing insights and summaries of video content
-                </motion.li>
-                <motion.li 
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 1 }}
-                >
-                  Creating a more efficient learning experience
-                </motion.li>
-              </motion.ul>
-              <motion.p 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 1.1 }}
-              >
-                I'm committed to building an open-source community around this project, where developers and researchers can collaborate to improve video content accessibility for everyone.
-              </motion.p>
             </motion.div>
           </motion.section>
         </div>

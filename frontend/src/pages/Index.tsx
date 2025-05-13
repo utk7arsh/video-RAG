@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Navbar } from '@/components/layout/Navbar';
@@ -9,6 +8,45 @@ import { ArrowRight, Play, Search, Book } from 'lucide-react';
 
 const Index = () => {
   const { toggleTheme, isDarkMode } = useTheme();
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [showWaitlistModal, setShowWaitlistModal] = useState(false);
+
+  async function handleWaitlistSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError('');
+    if (!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        setEmail('');
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
+    } catch {
+      setError('Something went wrong. Please try again.');
+    }
+  }
+
+  function handleOpenWaitlistModal() {
+    setShowWaitlistModal(true);
+    setSubmitted(false);
+    setEmail('');
+    setError('');
+  }
+
+  function handleCloseWaitlistModal() {
+    setShowWaitlistModal(false);
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -26,11 +64,14 @@ const Index = () => {
                 Turn educational videos into interactive learning experiences. Ask questions, get instant answers, and save key insights.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/signup">
+                {/* <Link to="/signup">
                   <Button size="lg" className="gradient-bg w-full sm:w-auto">
                     Get Started <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                </Link>
+                </Link> */}
+                <Button size="lg" className="gradient-bg w-full sm:w-auto" onClick={handleOpenWaitlistModal}>
+                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
                 <Link to="/how-it-works">
                   <Button size="lg" variant="outline" className="w-full sm:w-auto">
                     How It Works
@@ -173,22 +214,71 @@ const Index = () => {
             Start Unlocking Video Insights Today
           </h2>
           <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-            Join thousands of students and educators already using VideoInsight to transform their learning experience.
+            Join the waitlist to be notified when the Playground is live!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/signup">
-              <Button size="lg" variant="secondary" className="w-full sm:w-auto">
-                Sign Up Free
+            <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto justify-center">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="px-4 py-2 rounded-l-md border border-white/30 focus:outline-none focus:ring-2 focus:ring-primary bg-background text-white placeholder-white/70"
+                required
+                disabled={submitted}
+              />
+              <Button
+                type="submit"
+                variant="secondary"
+                className="rounded-r-md"
+                disabled={submitted}
+              >
+                {submitted ? 'Joined!' : 'Join Waitlist'}
               </Button>
-            </Link>
-            <Link to="/contact">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10">
-                Contact Sales
-              </Button>
-            </Link>
+            </form>
           </div>
         </div>
       </section>
+      
+      {/* Waitlist Modal */}
+      {showWaitlistModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="bg-background rounded-xl shadow-2xl p-8 w-full max-w-md relative animate-fade-in">
+            <button
+              className="absolute top-4 right-4 text-2xl text-muted-foreground hover:text-foreground focus:outline-none"
+              onClick={handleCloseWaitlistModal}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <h3 className="text-xl font-bold mb-4 text-center bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              Enter your email to join the Waitlist
+            </h3>
+            <form onSubmit={handleWaitlistSubmit} className="flex flex-col gap-4">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="px-4 py-2 rounded-md border border-white/30 focus:outline-none focus:ring-2 focus:ring-primary bg-background text-white placeholder-white/70"
+                required
+                disabled={submitted}
+                autoFocus
+              />
+              <Button
+                type="submit"
+                variant="secondary"
+                className="rounded-md"
+                disabled={submitted}
+              >
+                {submitted ? 'Joined!' : 'Join Waitlist'}
+              </Button>
+              {error && <div className="text-red-200 text-sm text-center">{error}</div>}
+              {submitted && <div className="text-green-300 text-sm text-center">Thank you for joining! You'll be notified when the Playground is live.</div>}
+            </form>
+          </div>
+        </div>
+      )}
       
       <Footer />
     </div>
