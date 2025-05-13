@@ -223,7 +223,7 @@ const Index = () => {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="px-4 py-2 rounded-l-md border border-white/30 focus:outline-none focus:ring-2 focus:ring-primary bg-background text-white placeholder-white/70"
+                className={`px-4 py-2 rounded-l-md border border-white/30 focus:outline-none focus:ring-2 focus:ring-primary bg-background ${isDarkMode ? 'text-white placeholder-white/70' : 'text-black placeholder-black/70'}`}
                 required
                 disabled={submitted}
               />
@@ -260,7 +260,7 @@ const Index = () => {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="px-4 py-2 rounded-md border border-white/30 focus:outline-none focus:ring-2 focus:ring-primary bg-background text-white placeholder-white/70"
+                className={`px-4 py-2 rounded-md border border-white/30 focus:outline-none focus:ring-2 focus:ring-primary bg-background ${isDarkMode ? 'text-white placeholder-white/70' : 'text-black placeholder-black/70'}`}
                 required
                 disabled={submitted}
                 autoFocus
