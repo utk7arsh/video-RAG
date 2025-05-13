@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -38,9 +37,9 @@ export const Navbar = ({ toggleTheme, isDarkMode }: NavbarProps) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link to="/features" className="text-foreground/80 hover:text-foreground">Features</Link>
           <Link to="/how-it-works" className="text-foreground/80 hover:text-foreground">How it Works</Link>
-          <Link to="/pricing" className="text-foreground/80 hover:text-foreground">Pricing</Link>
+          <Link to="/playground" className="text-foreground/80 hover:text-foreground">Playground</Link>
+          <Link to="/about" className="text-foreground/80 hover:text-foreground">About</Link>
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
               {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -70,13 +69,6 @@ export const Navbar = ({ toggleTheme, isDarkMode }: NavbarProps) => {
         <div className="md:hidden bg-background/95 backdrop-blur-lg shadow-lg">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link 
-              to="/features" 
-              className="text-foreground/80 hover:text-foreground py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Features
-            </Link>
-            <Link 
               to="/how-it-works" 
               className="text-foreground/80 hover:text-foreground py-2"
               onClick={() => setIsMenuOpen(false)}
@@ -84,11 +76,18 @@ export const Navbar = ({ toggleTheme, isDarkMode }: NavbarProps) => {
               How it Works
             </Link>
             <Link 
-              to="/pricing" 
+              to="/playground" 
               className="text-foreground/80 hover:text-foreground py-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              Pricing
+              Playground
+            </Link>
+            <Link 
+              to="/about" 
+              className="text-foreground/80 hover:text-foreground py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
             </Link>
             <div className="flex flex-col space-y-2 pt-2">
               <Link to="/login" onClick={() => setIsMenuOpen(false)}>
