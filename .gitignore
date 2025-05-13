@@ -1,4 +1,34 @@
-venv
-lessons
-ffmpeg-release
-shared_data
+# Python virtual environments
+venv/
+.venv/
+
+# Project specific
+lessons/
+ffmpeg-release/
+
+# Shared data and generated content
+shared_data/
+shared_data/*
+shared_data/**/*
+shared_data/.lancedb/
+shared_data/splitted_videos/
+shared_data/videos/
+video_db/
+temp_videos/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
