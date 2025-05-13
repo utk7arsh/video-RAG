@@ -1,4 +1,7 @@
-# Video-RAG
+
+# Video Insight (a.k.a VideoRAG)
+
+![VideoInsight Cover](assets/cover.png)
 
 A multimodal Retrieval Augmented Generation (RAG) system for intelligent video search and question answering.
 
