@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Search, Book } from 'lucide-react';
 
 // Get API URL from environment variables with fallback
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, ''); // Remove trailing slash if present
 console.log('API URL:', API_URL); // Debug log
 
 const Index = () => {
@@ -34,8 +34,10 @@ const Index = () => {
     }
     
     try {
-      console.log('Making API request to:', `${API_URL}/waitlist`);
-      const res = await fetch(`${API_URL}/waitlist`, {
+      const apiEndpoint = `${API_URL}/waitlist`;
+      console.log('Making API request to:', apiEndpoint);
+      
+      const res = await fetch(apiEndpoint, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
