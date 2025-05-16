@@ -1,6 +1,7 @@
 # Python virtual environments
 venv/
 .venv/
+.env*
 
 # Project specific
 lessons/

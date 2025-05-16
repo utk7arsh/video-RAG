@@ -6,6 +6,12 @@ import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Search, Book } from 'lucide-react';
 
+// Get API URL from environment variables with fallback
+const API_URL = import.meta.env.VITE_API_URL;
+if (!API_URL) {
+  console.error('VITE_API_URL is not defined in environment variables');
+}
+
 const Index = () => {
   const { toggleTheme, isDarkMode } = useTheme();
   const [email, setEmail] = useState('');
@@ -16,24 +22,45 @@ const Index = () => {
   async function handleWaitlistSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
+    console.log('Form submitted with email:', email);
+    
     if (!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
       setError('Please enter a valid email address.');
       return;
     }
+    
+    if (!API_URL) {
+      setError('API URL is not configured. Please contact support.');
+      return;
+    }
+    
     try {
-      const res = await fetch('/api/waitlist', {
+      console.log('Making API request to:', `${API_URL}/waitlist`);
+      const res = await fetch(`${API_URL}/waitlist`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        mode: 'cors',
+        credentials: 'omit',
         body: JSON.stringify({ email }),
       });
+      
+      console.log('Response status:', res.status);
+      const data = await res.json();
+      console.log('Response data:', data);
+      
       if (res.ok) {
         setSubmitted(true);
         setEmail('');
+        setShowWaitlistModal(false);
       } else {
-        setError('Something went wrong. Please try again.');
+        setError(data.detail || 'Something went wrong. Please try again.');
       }
-    } catch {
-      setError('Something went wrong. Please try again.');
+    } catch (err) {
+      console.error('Waitlist error:', err);
+      setError('Unable to connect to the server. Please try again later.');
     }
   }
 
