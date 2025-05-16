@@ -8,9 +8,7 @@ import { ArrowRight, Play, Search, Book } from 'lucide-react';
 
 // Get API URL from environment variables with fallback
 const API_URL = import.meta.env.VITE_API_URL;
-if (!API_URL) {
-  console.error('VITE_API_URL is not defined in environment variables');
-}
+console.log('API URL:', API_URL); // Debug log
 
 const Index = () => {
   const { toggleTheme, isDarkMode } = useTheme();
@@ -30,7 +28,8 @@ const Index = () => {
     }
     
     if (!API_URL) {
-      setError('API URL is not configured. Please contact support.');
+      console.error('API URL is not configured:', import.meta.env);
+      setError('Service temporarily unavailable. Please try again later.');
       return;
     }
     
@@ -60,7 +59,7 @@ const Index = () => {
       }
     } catch (err) {
       console.error('Waitlist error:', err);
-      setError('Unable to connect to the server. Please try again later.');
+      setError('Service temporarily unavailable. Please try again later.');
     }
   }
 
