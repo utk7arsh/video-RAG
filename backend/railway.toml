@@ -7,4 +7,13 @@ startCommand = "gunicorn app.main:app --workers 4 --worker-class uvicorn.workers
 healthcheckPath = "/"
 healthcheckTimeout = 100
 restartPolicyType = "on-failure"
-restartPolicyMaxRetries = 10 
+restartPolicyMaxRetries = 10
+
+[phases.setup]
+nixPkgs = ["python3", "ffmpeg-headless", "gcc"]
+
+[phases.install]
+cmds = ["python -m venv --copies /opt/venv", ". /opt/venv/bin/activate", "pip install -r requirements.txt"]
+
+[phases.start]
+cmds = ["gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT"] 
