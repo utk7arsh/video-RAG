@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 import logging
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG)
+log_level = os.getenv("LOG_LEVEL", "INFO")
+logging.basicConfig(level=getattr(logging, log_level))
 logger = logging.getLogger(__name__)
 
 load_dotenv()
@@ -20,10 +21,11 @@ app = FastAPI(
 # Get allowed origins from environment variable or use defaults
 ALLOWED_ORIGINS = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080,https://videoinsights.vercel.app/"
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080,https://videoinsights.vercel.app"
 ).split(",")
 
-logger.debug(f"Allowed origins: {ALLOWED_ORIGINS}")
+logger.info(f"Starting application with log level: {log_level}")
+logger.info(f"Allowed origins: {ALLOWED_ORIGINS}")
 
 # Configure CORS
 app.add_middleware(
