@@ -10,7 +10,7 @@ restartPolicyType = "on-failure"
 restartPolicyMaxRetries = 10
 
 [phases.setup]
-nixPkgs = ["nodejs", "npm"]
+nixPkgs = ["nodejs_20", "nodePackages.npm"]
 
 [phases.install]
 cmds = ["npm install"]
